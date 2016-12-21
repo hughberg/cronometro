@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript">
+            var segundos=0;
+            var minutos=0;
+            var horas=0;
+            var temp;
+            //inicia temporizador
+            function iniciar(){
+                temp=window.setInterval(function(){incrementar();},1000);
+                document.getElementById("biniciar").disabled=true;
+            }
+            
+            //para el temporizador
+            function parar(){
+                window.clearInterval(temp);
+                document.getElementById("biniciar").disabled=false;
+            }
+            
+            //pone a 0 el temporizador
+            function resetear(){
+                segundos=0;
+                minutos=0;
+                horas=0;
+                presentar();
+            }
+            
+            //función asociada al temporizador
+            function incrementar(){
+                segundos++;
+                if(segundos===60){
+                    segundos=0;
+                    minutos++;
+                }
+                if(minutos===60){
+                    minutos=0;
+                    horas++;
+                }
+                if(horas===24){
+                    horas=0;
+                }
+                presentar();
+            }
+            
+            //presenta los valores de los contadores
+            //en la página
+            function presentar(){
+                var pseg, pmin, phor;
+                //para que se muestre un 0 delante en caso de que
+                //solo tenga una cifra
+                if(segundos<10){
+                    pseg="0"+segundos;
+                }else{
+                    pseg=segundos;
+                }
+                if(minutos<10){
+                    pmin="0"+minutos;
+                }else{
+                    pmin=minutos;
+                }
+                if(horas<10){
+                    phor="0"+horas;
+                }else{
+                    phor=horas;
+                }
+                
+                document.getElementById("crono").innerHTML=phor+":"+pmin+":"+pseg;
+            }
+        </script>
+    </head>
+    <body onload="presentar();">
+        <div id="crono">
+            
+        </div><br/><br/>
+        <input type="button" id="biniciar" value="Iniciar" onclick="iniciar()"/>
+        <input type="button" value="Parar" onclick="parar()"/>
+        <input type="button" value="Reset" onclick="resetear()"/>
+    </body>
+</html>
